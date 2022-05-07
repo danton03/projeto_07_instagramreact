@@ -1,10 +1,24 @@
+/* Importação dos componentes genéricos */
 import Story from "./Story";
 import Post from "./Post";
+import Sugestao from "./Sugestao";
 
 
 export default function Corpo() {
   return(
-    /* to-do: fazer várias funções para subdividir as partes da div corpo e chamar ela aqui */
+    <div class="corpo">
+      <Esquerda />
+      <SideBar />
+    </div>
+  );
+}
+
+
+/*==============================================================*/
+
+/* Reune os componentes da parte esquerda */
+function Esquerda() {
+  return(
     <div class="esquerda">
       <Stories />
       <Posts />
@@ -12,8 +26,8 @@ export default function Corpo() {
   );
 }
 
-
 /*==============================================================*/
+
 function Stories() {
   //Usa um array de objetos para jogar as imagens no componente Story
   const storiesData = [
@@ -27,8 +41,7 @@ function Stories() {
   ]
   return(
     <div class="stories">
-      {/* renderiza os stories aqui */}
-
+      {/* renderiza os stories */}
       {storiesData.map((user) => (
         <Story urlImg={user.urlImg} userName={user.userName} />
       ))}
@@ -41,6 +54,7 @@ function Stories() {
 }
 
 /*==============================================================*/
+
 function Posts() {
   const postsData = [
     {
@@ -76,4 +90,67 @@ function Posts() {
     </div>
   )
 }
+
+/*==============================================================*/
+/* Sidebar */
+function SideBar() {
+  const userData = {
+    name: "Catana", 
+    nick: "catanacomics", 
+    profile:"./assets/img/catanacomics.svg"
+  }
+
+  return(
+    <div class="sidebar">
+      <Usuario userName={userData.nick} name={userData.name} src={userData.profile} />
+      <Sugestoes />
+    </div>
+  );
+}
+
+/*==============================================================*/
+function Usuario(props) {
+  return(
+    <div class="usuario">
+      <img src={props.src} alt={props.name} />
+      <div class="texto">
+        <strong>{props.userName}</strong>
+        {props.name}
+      </div>
+    </div>
+  );
+}
+
+/*==============================================================*/
+function Sugestoes() {
+  const recommended = [
+    {name: "bad.vibes.memes", urlImg: "assets/img/bad.vibes.memes.svg", reason:"Segue você"},
+    {name: "chibirdart", urlImg: "./assets/img/chibirdart.svg", reason:"Segue você"},
+    {name: "razoesparaacreditar", urlImg: "./assets/img/razoesparaacreditar.svg", reason:"Novo no Instagram"},
+    {name: "adorable_animals.svg", urlImg: "./assets/img/adorable_animals.svg", reason:"Segue você"},
+    {name: "smallcutecats", urlImg: "./assets/img/smallcutecats.svg", reason:"Segue você"}
+  ]
+
+  return(
+    <div class="sugestoes">
+      <div class="titulo">
+        Sugestões para você
+        <div>Ver tudo</div>
+      </div>
+      
+      {recommended.map((user) => (
+        <Sugestao userName={user.userName} img={user.urlImg} reason={user.reason} />
+      ))}
+
+      <div class="links">
+        Sobre • Ajuda • Imprensa • API • Carreiras • Privacidade • Termos • Localizações • Contas mais relevantes • Hashtags • Idioma
+      </div>
+
+      <div class="copyright">
+        © 2021 INSTAGRAM DO FACEBOOK
+      </div>
+    </div>
+  );
+}
+
 
